@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: news-website-replicaset
+spec:
+  template:
+    metadata:
+      name: news-website
+      labels:
+        app: news-website
+    spec:
+      containers:
+        - name: news-website-container
+          image: aluracursos/portal-noticias:1
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: news-website-configmap
+  replicas: 3
+  selector:
+    matchLabels:
+      app: news-website
+  
